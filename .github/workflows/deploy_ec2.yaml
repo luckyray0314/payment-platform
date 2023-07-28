@@ -14,26 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Build React app
-      run: |
-        cd reactapp
-        npm install
-        npm run build
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-          java-version: 11.0.4
-
-    - name: Build Spring Boot app
-      run: |
-        cd springapp
-        ./mvnw package
-
     - name: Deploy to EC2
       env:
         EC2_USER: ${{ secrets.EC2_USER }}
@@ -45,14 +25,4 @@ jobs:
         # Stop the existing server
         ssh -i paymint-server-key.pem "$EC2_USER"@"$EC2_HOST" 'pkill -f "java -jar springapp-0.0.1-SNAPSHOT.jar"'
 
-        # Copy the new build artifacts
-        scp -i paymint-server-key.pem -r reactapp/build "$EC2_USER"@"$EC2_HOST":/home/ec2-user/react
-        scp -i paymint-server-key.pem springapp/target/springapp-0.0.1-SNAPSHOT.jar "$EC2_USER"@"$EC2_HOST":/home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar
-
-        # Start the new server
-        ssh -i paymint-server-key.pem "$EC2_USER"@"$EC2_HOST" 'nohup java -jar /home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar > /home/ec2-user/spring/server.log 2>&1 &'
-
-    - name: Clean up SSH key
-      run: |
-        rm -f paymint-server-key.pem
 
