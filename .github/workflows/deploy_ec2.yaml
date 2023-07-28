@@ -39,20 +39,20 @@ jobs:
         EC2_USER: ${{ secrets.EC2_USER }}
         EC2_HOST: ${{ secrets.EC2_HOST }}
       run: |
-        echo "$EC2_SSH_PRIVATE_KEY" > ssh_key.pem
-        chmod 600 ssh_key.pem
+        echo "$EC2_SSH_PRIVATE_KEY" > paymint-server-key.pem
+        chmod 600 paymint-server-key.pem
 
         # Stop the existing server
-        ssh -i ssh_key.pem "$EC2_USER"@"$EC2_HOST" 'pkill -f "java -jar springapp-0.0.1-SNAPSHOT.jar"'
+        ssh -i paymint-server-key.pem "$EC2_USER"@"$EC2_HOST" 'pkill -f "java -jar springapp-0.0.1-SNAPSHOT.jar"'
 
         # Copy the new build artifacts
-        scp -i ssh_key.pem -r reactapp/build "$EC2_USER"@"$EC2_HOST":/home/ec2-user/react
-        scp -i ssh_key.pem springapp/target/springapp-0.0.1-SNAPSHOT.jar "$EC2_USER"@"$EC2_HOST":/home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar
+        scp -i paymint-server-key.pem -r reactapp/build "$EC2_USER"@"$EC2_HOST":/home/ec2-user/react
+        scp -i paymint-server-key.pem springapp/target/springapp-0.0.1-SNAPSHOT.jar "$EC2_USER"@"$EC2_HOST":/home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar
 
         # Start the new server
-        ssh -i ssh_key.pem "$EC2_USER"@"$EC2_HOST" 'nohup java -jar /home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar > /home/ec2-user/spring/server.log 2>&1 &'
+        ssh -i paymint-server-key.pem "$EC2_USER"@"$EC2_HOST" 'nohup java -jar /home/ec2-user/spring/springapp-0.0.1-SNAPSHOT.jar > /home/ec2-user/spring/server.log 2>&1 &'
 
     - name: Clean up SSH key
       run: |
-        rm -f ssh_key.pem
+        rm -f paymint-server-key.pem
 
