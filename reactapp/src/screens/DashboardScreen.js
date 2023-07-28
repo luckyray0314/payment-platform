@@ -3,14 +3,13 @@ import {validateToken} from "../features/userSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import BarChart from "../components/dashboard/BarChart";
-import {Divider, Grid, Paper, Text, Title,Skeleton } from "@mantine/core";
+import {Divider, Grid, Paper, Text, Title } from "@mantine/core";
 import IncomePieChart from "../components/dashboard/IncomePieChart";
 import ExpensesPieChart from "../components/dashboard/ExpensesPieChart";
 import axios from "axios";
 import {baseUrl} from "../api/config";
 import DashboardFeture from "../components/dashboard/DashboardFeature";
 import {fetchBudget} from "../features/budgetSlice";
-import {useStoreActions} from "easy-peasy";
 import {fetchAccount} from "../features/accountSlice";
 import {fetchGoal} from "../features/goalSlice";
 
@@ -22,20 +21,18 @@ export default function  DashboardScreen(){
         total_expenses:0,
         total_income:0
     });
-    const getData=useStoreActions((action)=>action.getData);
     useEffect(()=>{
         dispatch(validateToken(token))
         dispatch(fetchBudget({token:token}))
         dispatch(fetchAccount({token:token}))
         dispatch(fetchGoal({token:token}))
-        getData({token:token,value:0});
         axios.get(`${baseUrl}/dashboard/this-month/total/income-and-expenses`,{
             headers: { Authorization: `Bearer ${token}` }
         }).then((res) =>{
             setResult(res.data.data)
         }).catch((err) =>{
         })
-    },[])
+    },[dispatch, token])
     return(
         <Layout title={"Dashboard"} load={true}>
             <div >

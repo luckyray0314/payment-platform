@@ -5,8 +5,7 @@ import {
     Space,
     Button,
     Modal,
-    Avatar,
-    useMantineTheme, Container, Title,
+    Container, Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditNameForm from "../components/settings/EditNameForm";
@@ -21,32 +20,21 @@ import Layout from "../components/Layout";
 
 export default function ProfileScreen() {
   const [opened, { open, close }] = useDisclosure(false);
-  const theme = useMantineTheme();
   const [form, setForm] = useState(null);
   const [formName, setFormName] = useState(null);
   const inputRef = useRef(null);
-  const [image, setImage] = useState("");
+
 
   //image
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
 
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-    });
 
   const handleImageClick = () => {
     inputRef.current.click();
   };
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
-    // let url = await toBase64(file);
-    setImage(file);
-    // console.log(url);
     await dispatch(editImage({ image: file, token: token }));
     await dispatch(validateToken(token));
   };
@@ -156,7 +144,7 @@ export default function ProfileScreen() {
               {currentUser.profileImage ? (
                 <img
                   src={`data:image/jpeg;base64,${currentUser.profileImage}`}
-                  alt="Default image"
+                  alt="Default"
                   style={{
                     width: "150px",
                     height: "150px",

@@ -11,13 +11,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     closeForgotPasswordForm,
     closeSigninForm,
-    closeSignupForm, openForgotPasswordForm,
+    closeSignupForm,
     openSigninForm,
     openSignupForm
 } from '../features/userSlice'
 import {ReactComponent as ProfileIcon } from "../assets/User.svg";
 import {ReactComponent as LogoutIcon} from "../assets/Sign_out_squre.svg";
-import {ReactComponent as AppLogo} from "../assets/App logo.svg";
+import {AppLogo} from "../assets/assets";
 import {ReactComponent as ExpandIcon} from "../assets/Expand_down.svg";
 import {ReactComponent as AvatarIcon} from "../assets/User_duotone.svg";
 import {useNavigate} from "react-router-dom";
@@ -35,9 +35,6 @@ export default function HeaderBar(props) {
     const navigate = useNavigate();
     function handleOpenSigninForm() {
         dispatch(openSigninForm())
-    }
-    function handleOpenForgotPasswordForm() {
-        dispatch(openForgotPasswordForm())
     }
     function handleOpenSignupForm() {
         dispatch(openSignupForm())
@@ -65,7 +62,7 @@ export default function HeaderBar(props) {
                 <Group position="apart" sx={{ height: '100%' }}>
                     <Group>
                         {props.isMobile && <Burger opened={props.navOpened} onClick={() => props.setNavOpened(!props.navOpened)}/>}
-                        <AppLogo style={{width:140,height:60}}/>
+                        <AppLogo />
                     </Group>
                         {props.isLandingPage?
                             <Group>

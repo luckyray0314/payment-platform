@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Group, Text, TextInput } from '@mantine/core';
+import { Button, Group, Text } from '@mantine/core';
 
 export default function DeleteAccount() {
   return (

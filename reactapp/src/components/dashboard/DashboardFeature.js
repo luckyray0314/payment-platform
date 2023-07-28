@@ -1,11 +1,10 @@
 import {Grid, Paper, Text} from "@mantine/core";
 import {useSelector} from "react-redux";
-import {useStoreState} from "easy-peasy";
 
 export default function  DashboardFeture(){
     const accountList = useSelector(state => state.account.accountList)
     const budgetList = useSelector(state => state.budget.budgetList)
-    const debtPending = useStoreState((state) => state.debtPending);
+    const debtPending = 0;
     const goalList = useSelector(state => state.goal.goalList)
     function handleTotalBalanace(){
         return accountList.reduce(

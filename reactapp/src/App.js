@@ -9,7 +9,6 @@ import React from "react";
 import TransactionScreen from './screens/TransactionScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import BudgetScreen from "./screens/BudgetScreen";
-import DebtScreen from './screens/DebtScreen';
 
 function App() {
 
@@ -19,7 +18,6 @@ function App() {
               <Route exact path='/' element={<AlreadyLoggedin><LandingScreen></LandingScreen></AlreadyLoggedin>} />
               <Route path='/dashboard' element={<RequireAuth><DashboardScreen/></RequireAuth>}/>
               <Route path='/account' element={<RequireAuth><AccountScreen/></RequireAuth>}/>
-              <Route path='/debts' element={<RequireAuth><DebtScreen/></RequireAuth>}/>
               <Route path='/report' element={<RequireAuth><ReportScreen/></RequireAuth>}/>
               <Route path='/goal' element={<RequireAuth><GoalScreen/></RequireAuth>}/>
               <Route path='/transaction' element={<RequireAuth><TransactionScreen/></RequireAuth>}/>

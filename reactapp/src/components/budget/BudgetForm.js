@@ -48,6 +48,7 @@ function BudgetForm(props) {
     }
     function categoryData(){
         const data =[]
+        // eslint-disable-next-line array-callback-return
         categoryList.map(val => {
             data.push({value:val.categoryId,label:val.name})
         })

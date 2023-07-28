@@ -8,28 +8,25 @@ import {
     Container,
     Grid,
     Textarea,
-    Select, Text, Loader, LoadingOverlay,
+    Select, Text, Loader,
 } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addTransaction,
-    closeTransactionForm,
     editTransaction,
     fetchTransaction,
     removeTransaction
 } from "../../features/transactionSlice";
-import {closeAccountForm, fetchAccount} from "../../features/accountSlice";
+import {fetchAccount} from "../../features/accountSlice";
 import {useEffect, useState} from "react";
-import {fetchCategory, showCategoryForm} from "../../features/categorySlice";
-import AccountList from "../accounts/AccountList";
+import {fetchCategory} from "../../features/categorySlice";
+
 
 export default function TransactionEditForm(props) {
-    const {id,amount,type,accountId,paymentType,categoryId,description,dateTime} = props.element
     const dispatch = useDispatch()
     const token = useSelector(state => state.user.token)
-    const addTransactionInProcess = useSelector(state => state.transaction.addTransactionInProcess)
+    useSelector(state => state.transaction.addTransactionInProcess);
     const [showDiscard,setShowDiscard] = useState(false);
     const categoryList = useSelector(state => state.category.categoryList)
     const accountList = useSelector(state => state.account.accountList)
@@ -71,13 +68,8 @@ export default function TransactionEditForm(props) {
         form.setFieldValue('dateTime',date)
         form.setFieldValue('type',props?.element?.category?.type)
         form.setFieldValue('accountId',props?.element?.account?.accountId)
-    },[])
+    },[dispatch, form, props?.element?.account?.accountId, props?.element?.amount, props?.element?.category?.categoryId, props?.element?.category?.type, props?.element?.dateTime, props?.element?.description, props?.element?.paymentType, token])
 
-    function handleDiscard(){
-        form.reset()
-        setShowDiscard(false)
-        dispatch(closeTransactionForm())
-    }
 
     function handleDiscardCancel(){
         setShowDiscard(false)
@@ -93,6 +85,7 @@ export default function TransactionEditForm(props) {
 
     function categoryData(){
         const data =[]
+        // eslint-disable-next-line array-callback-return
         categoryList.map(val => {
             data.push({value:val.categoryId,label:val.name})
         })
@@ -100,6 +93,7 @@ export default function TransactionEditForm(props) {
     }
     function accountData(){
         const data =[]
+        // eslint-disable-next-line array-callback-return
         accountList.map(val => {
             data.push({value:val.accountId,label:val.name})
         })
@@ -109,12 +103,14 @@ export default function TransactionEditForm(props) {
         const data =[]
         const selectedAccount = form.values.accountId
         let paymentType = []
+        // eslint-disable-next-line array-callback-return
         accountList.map(val =>{
             if(val.accountId===selectedAccount){
                 paymentType = val.paymentTypes
             }
         })
         if(paymentType.length > 0){
+            // eslint-disable-next-line array-callback-return
             paymentType.map(val => {
                 data.push({value:val,label:val})
             })
@@ -123,6 +119,7 @@ export default function TransactionEditForm(props) {
     }
 
     function handleTransactionType(){
+        // eslint-disable-next-line array-callback-return
         categoryList.map(val =>{
             if(val.categoryId===form.values.categoryId){
                 form.values.type = val.type

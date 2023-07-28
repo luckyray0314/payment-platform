@@ -1,5 +1,4 @@
-import {Card, Button, Text, Table, Group,Grid } from '@mantine/core';
-import { ReactComponent as DownloadSVG } from '../../assets/Import.svg';
+import {Card, Button, Text, Group,Grid } from '@mantine/core';
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {baseUrl} from "../../api/config";
@@ -10,8 +9,6 @@ import {notifications} from "@mantine/notifications";
 import {ReactComponent as SuccessIcon} from "../../assets/success-icon.svg";
 
 export default function ReportList() {
-
-    const list = ["Transactions Report","Budgets Report","Goals Report","Debts Report"]
     const token = useSelector(state => state.user.token)
     const [transactionReportLoading,setTransactionReportLoading] = useState(false);
     async function handleTransactionReportExcel() {

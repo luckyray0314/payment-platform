@@ -13,7 +13,7 @@ import { ReactComponent as DebtsIcon } from "../assets/Calendar.svg";
 import { ReactComponent as DebtsIconBlue } from "../assets/Calendar_fill_Blue.svg";
 import { ReactComponent as ReportsIcon } from "../assets/Desk_alt.svg";
 import { ReactComponent as ReportsIconBlue } from "../assets/Desk_alt_Blue.svg";
-import { ReactComponent as AddIcon } from "../assets/Add_round.svg";
+import {AddIcon} from "../assets/assets";
 import { ReactComponent as AddCategoryIcon } from "../assets/Folder_add_duotone_line.svg";
 import { ReactComponent as AddDebtIcon } from "../assets/Calendar_add_duotone.svg";
 import { ReactComponent as AddBudgetIcon } from "../assets/Date_range_duotone.svg";
@@ -25,18 +25,16 @@ import { ReactComponent as AddGoalIcon } from "../assets/Road_finish_duotone_lin
 import { useNavigate } from "react-router-dom";
 import CategoryForm from "./category/CategoryForm";
 import {useDispatch, useSelector} from "react-redux";
-import {closeCategoryForm, fetchCategory, showCategoryForm} from "../features/categorySlice";
+import {closeCategoryForm, showCategoryForm} from "../features/categorySlice";
 import {closeTransactionForm, showTransactionForm} from "../features/transactionSlice";
 import {closeAccountForm, showAccountForm} from "../features/accountSlice";
 import AccountForm from "./accounts/AccountForm";
 import TransactionForm from "./transactions/TransactionFrom";
 import BudgetForm from "./budget/BudgetForm";
-import {closeBudgetForm, showBudgetForm} from "../features/budgetSlice";
+import { showBudgetForm} from "../features/budgetSlice";
 import GoalForm from "./goals/GoalForm";
 import {closeGoalForm, showGoalForm} from "../features/goalSlice";
 
-import { useState } from "react";
-import DebtForm from "./debt/DebtForm";
 
 export default function SideBar(props) {
   const navigate = useNavigate();
@@ -46,10 +44,6 @@ export default function SideBar(props) {
   const displayAccountForm = useSelector(state => state.account.displayAccountForm)
   const displayBudgetForm = useSelector(state => state.budget.displayBudgetForm)
   const displayGoalForm = useSelector(state => state.goal.displayGoalForm)
-  const token = useSelector(state => state.user.token)
-  //dispatch(fetchTransaction({token:token}))
-  //dispatch(fetchCategory({token:token}))
-  //dispatch(fetchAccount({token:token}))
   function handleCategoryFormClose() {
     dispatch(closeCategoryForm());
   }
@@ -60,20 +54,11 @@ export default function SideBar(props) {
     dispatch(closeAccountForm());
   }
 
-  function handleBudgetFormClose() {
-    dispatch(closeBudgetForm());
-  }
 
   function handleBudgetFormClose() {
     dispatch(closeGoalForm());
   }
 
-  // Debt From Likning  
-  const [debtFormOpen, setDebtFormOpen] = useState(false);
-
-  const openDebtForm = () => {
-    setDebtFormOpen((prev) => !prev);
-  };
   
   function navStyle(){
     if(props.isMobile){
@@ -191,7 +176,7 @@ export default function SideBar(props) {
               <Menu.Item icon={<AddGoalIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showGoalForm())}>
                 Add Goal
               </Menu.Item>
-              <Menu.Item icon={<AddDebtIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={openDebtForm} >
+              <Menu.Item icon={<AddDebtIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }}  >
                 Add Debt
               </Menu.Item>
             </Menu.Dropdown>
@@ -208,7 +193,6 @@ export default function SideBar(props) {
               close={handleTransactionFormClose}></TransactionForm>
           <BudgetForm open={displayBudgetForm} close={handleBudgetFormClose}/>
           <GoalForm open={displayGoalForm} close={handleBudgetFormClose}/>
-          <DebtForm isOpen={debtFormOpen} onClose={openDebtForm}/>
 
         </Navbar.Section>
       </Navbar>

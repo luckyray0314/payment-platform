@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {Button, Table, Progress, Text, Grid} from "@mantine/core";
+import {Table, Progress, Text, Grid} from "@mantine/core";
 import { ReactComponent as EditSVG } from '../../assets/Edit.svg';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchBudget, showBudgetForm} from "../../features/budgetSlice";
+import {fetchBudget} from "../../features/budgetSlice";
 import BudgetEditForm from "./BudgetEditForm";
 
 
@@ -13,8 +13,7 @@ export default function BudgetList(){
     const token = useSelector(state => state.user.token)
         useEffect(()=>{
             dispatch(fetchBudget({token:token}))
-        },[])
-        const [rowToEdit,setRowToEdit]=useState(null)
+        },[dispatch, token])
     function handleBudgetEditFormClose(){
         setDisplayBudgetEditForm(false)
     }

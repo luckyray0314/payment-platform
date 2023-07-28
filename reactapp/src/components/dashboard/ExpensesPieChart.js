@@ -42,7 +42,7 @@ const ExpensesPieChart = (props) => {
             console.log(err)
             setPieChartLoading(false)
         })
-    },[])
+    },[token])
     console.log("ex",result)
     const labels = [];
     const expensesData = [];

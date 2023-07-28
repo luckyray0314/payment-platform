@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Bar, Pie} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -39,7 +39,7 @@ const BarChart = () => {
             setBarChartLoading(false)
             console.log(err)
         })
-    },[])
+    },[token])
     const labels = [];
     for (let i=result.length-1;i>=0; i--){
         labels.push(result[i].month)

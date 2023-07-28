@@ -1,4 +1,4 @@
-import { Table, Button,Text} from '@mantine/core';
+import { Table,Text} from '@mantine/core';
 import {useSelector} from "react-redux";
 import { ReactComponent as EditSVG } from '../../assets/Edit.svg';
 import {useState} from "react";
@@ -16,24 +16,6 @@ export default function GoalList() {
         setSelectedEditElement(element)
         setDisplayGoalEditForm(true)
     }
-    const goals = [{
-        name: "Emergency fund",
-        targetDate: "22 Aug 2023",
-        targetAmount: 50000,
-        status: "Pending"
-    },
-    {
-        name: "Savings",
-        targetDate: "31 Dec 2023",
-        targetAmount: 100000,
-        status: "Pending"
-    },
-    {
-        name: "Himachal Trip",
-        targetDate: "1 Nov 2023",
-        targetAmount: 30000,
-        status: "Pending"
-    }]
 
     function handleDate(date){
         const formatDate = new Date(date)

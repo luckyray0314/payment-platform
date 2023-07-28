@@ -4,10 +4,10 @@ import {
     Modal,
     Button,
     Container,
-    Grid, Text, LoadingOverlay, Loader, Select
+    Grid, Text, LoadingOverlay, Select
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import {addGoal, editGoal, fetchGoal, removeGoal} from "../../features/goalSlice";
+import { editGoal, fetchGoal, removeGoal} from "../../features/goalSlice";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {DatePickerInput} from "@mantine/dates";
@@ -41,7 +41,7 @@ export default function GoalEditForm(props){
         const date = new Date(props?.element?.targetDate)
         form.setFieldValue('targetDate',date)
         form.setFieldValue('status',props?.element?.status)
-    },[])
+    },[form, props?.element?.description, props?.element?.name, props?.element?.status, props?.element?.targetAmount, props?.element?.targetDate])
     async function handleSubmit(){
         await dispatch(editGoal({...form.values,goalId:props.element.id,token:token,targetDate:form.values.targetDate.getTime()}))
         await dispatch(fetchGoal({token:token}))

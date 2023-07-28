@@ -8,9 +8,8 @@ import {
 import { useForm } from '@mantine/form';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addBudget, closeBudgetForm, editBudget, fetchBudget, removeBudget} from "../../features/budgetSlice";
+import { editBudget, fetchBudget, removeBudget} from "../../features/budgetSlice";
 import {fetchCategory} from "../../features/categorySlice";
-import {fetchAccount, removeAccount} from "../../features/accountSlice";
 
 function BudgetEditForm(props) {
     const dispatch = useDispatch()
@@ -37,7 +36,7 @@ function BudgetEditForm(props) {
         dispatch(fetchCategory({token:token}))
         form.setFieldValue('amount',props?.element?.amount)
         form.setFieldValue('categoryId',props?.element?.category?.categoryId)
-    },[])
+    },[dispatch, form, props?.element?.amount, props?.element?.category?.categoryId, token])
 
     async function handleSubmit() {
         await dispatch(editBudget({...form.values,token: token,budgetId:props.element.id}))
@@ -65,6 +64,7 @@ function BudgetEditForm(props) {
     }
     function categoryData(){
         const data =[]
+        // eslint-disable-next-line array-callback-return
         categoryList.map(val => {
             data.push({value:val.categoryId,label:val.name})
         })

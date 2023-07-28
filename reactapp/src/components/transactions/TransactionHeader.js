@@ -1,19 +1,12 @@
-import { Flex, Title, Button, Group, Grid, TextInput, searchValue } from '@mantine/core';
+import { Title, Button, Grid, TextInput } from '@mantine/core';
 import { ReactComponent as FilterIcon } from '../../assets/Filter_alt.svg'
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg'
-import { useState } from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {closeTransactionForm, showTransactionForm} from "../../features/transactionSlice";
+import {useDispatch} from "react-redux";
+import { showTransactionForm} from "../../features/transactionSlice";
 
 export default function TransactionHeader() {
-    const [searchValue, setSearchValue] = useState("");
     const dispatch = useDispatch()
-    function handleTransactionFormClose() {
-        dispatch(closeTransactionForm())
-    }
-    const handleInputChange = (event) => {
-        const value = event.target.value;
-    };
+
     return (
         <div style={{marginBottom:10}}>
             <Grid justify="space-around">
@@ -35,8 +28,7 @@ export default function TransactionHeader() {
                                 icon={<SearchIcon />}
                                 radius="md"
                                 placeholder="Search..."
-                                value={searchValue}
-                                onChange={handleInputChange}
+                                value={''}
                             />
                         </Grid.Col>
                         <Grid.Col md={12} lg={4}>

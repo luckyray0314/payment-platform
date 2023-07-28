@@ -6,7 +6,6 @@ import {useDispatch,useSelector} from "react-redux";
 import {fetchBudget} from "../features/budgetSlice";
 import {useEffect} from "react";
 import {validateToken} from "../features/userSlice";
-import {fetchGoal} from "../features/goalSlice";
 
 
 export default function BudgetScreen(){
@@ -18,7 +17,7 @@ export default function BudgetScreen(){
             dispatch(fetchBudget({token:token}))
         }
         fetchData()
-    },[])
+    },[dispatch, token])
     const budgetList = useSelector(state => state.budget.budgetList)
     return(
         <Layout title={"Budgets"} load={budgetList.length>0}>

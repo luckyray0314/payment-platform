@@ -7,7 +7,6 @@ import {fetchAccount} from "../features/accountSlice";
 import {useEffect} from "react";
 import {Container, Divider, Grid, Skeleton} from "@mantine/core";
 import {validateToken} from "../features/userSlice";
-import {fetchTransaction} from "../features/transactionSlice";
 
 
 export default function  AccountScreen(){
@@ -19,7 +18,7 @@ export default function  AccountScreen(){
             dispatch(fetchAccount({token:token}))
         }
         fetchData()
-    },[])
+    },[dispatch, token])
     const fetchAccountInProcess = useSelector(state => state.account.fetchAccountInProcess)
     const accountList = useSelector(state => state.account.accountList)
     function GridSkeleton(){

@@ -11,8 +11,8 @@ import {
 import { useForm } from '@mantine/form';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addAccount, changeAccount, closeAccountForm, fetchAccount, removeAccount} from "../../features/accountSlice";
-import {closeCategoryForm} from "../../features/categorySlice";
+import { changeAccount, fetchAccount, removeAccount} from "../../features/accountSlice";
+
 
 export default function AccountEditForm(props) {
     console.log(props.element)
@@ -43,7 +43,7 @@ export default function AccountEditForm(props) {
         form.setFieldValue('name',props?.element?.name)
         form.setFieldValue('currentBalance',props?.element?.currentBalance)
         form.setFieldValue('paymentTypes',props?.element?.paymentTypes)
-    },[])
+    },[form, props?.element?.currentBalance, props?.element?.name, props?.element?.paymentTypes])
 
     async function handleDelete() {
         await dispatch(removeAccount({token: token, accountId: props.element.accountId}))

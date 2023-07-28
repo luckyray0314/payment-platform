@@ -12,7 +12,6 @@ import { useForm } from '@mantine/form';
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addAccount, closeAccountForm, fetchAccount} from "../../features/accountSlice";
-import {closeCategoryForm} from "../../features/categorySlice";
 
 export default function AccountForm(props) {
     const dispatch = useDispatch()

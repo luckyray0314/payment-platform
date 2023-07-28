@@ -32,7 +32,7 @@ export default function TransactionList() {
             <div style={{marginBottom:12}}>
                 <div style={{ display: "flex",marginBottom:5,marginTop:8 }}>
                     {category.type === "income" ?
-                        <img src={ArrowGIcon} /> : <img src={ArrowRIcon} />}
+                        <img src={ArrowGIcon}  alt={""}/> : <img src={ArrowRIcon}  alt={""}/>}
                     {category.type === "income" ?
                         <Text fw={700} fz="md">Received from: {<Badge color="green">{category.name}</Badge>}</Text>  : <Text fw={700} fz="md">Spent on: {<Badge  color="red">{category.name}</Badge>}</Text>}
 
@@ -55,7 +55,7 @@ export default function TransactionList() {
     const paytype = (element) => {
         return (
             <div style={{marginBottom:12}}>
-                <img src={Edit} onClick={() => handleTransactionEditFormOpen(element)}/>
+                <img src={Edit} onClick={() => handleTransactionEditFormOpen(element)} alt={""}/>
             </div>
         )
     }

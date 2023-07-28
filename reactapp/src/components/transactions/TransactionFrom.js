@@ -14,19 +14,18 @@ import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import {useDispatch, useSelector} from "react-redux";
 import {addTransaction, closeTransactionForm, fetchTransaction} from "../../features/transactionSlice";
-import {closeAccountForm, fetchAccount} from "../../features/accountSlice";
+import { fetchAccount} from "../../features/accountSlice";
 import {useEffect, useState} from "react";
-import {fetchCategory, showCategoryForm} from "../../features/categorySlice";
-import AccountList from "../accounts/AccountList";
+import {fetchCategory} from "../../features/categorySlice";
 
 export default function TransactionForm(props) {
   const dispatch = useDispatch()
   const token = useSelector(state => state.user.token)
-  const addTransactionInProcess = useSelector(state => state.transaction.addTransactionInProcess)
+    useSelector(state => state.transaction.addTransactionInProcess);
     useEffect(()=>{
         dispatch(fetchCategory({token:token}))
         dispatch(fetchAccount({token:token}))
-    },[])
+    },[dispatch, token])
   const [showDiscard,setShowDiscard] = useState(false);
   const categoryList = useSelector(state => state.category.categoryList)
   const accountList = useSelector(state => state.account.accountList)
@@ -77,6 +76,7 @@ export default function TransactionForm(props) {
 
   function categoryData(){
       const data =[]
+      // eslint-disable-next-line array-callback-return
       categoryList.map(val => {
           data.push({value:val.categoryId,label:val.name})
       })
@@ -84,6 +84,7 @@ export default function TransactionForm(props) {
   }
   function accountData(){
       const data =[]
+      // eslint-disable-next-line array-callback-return
       accountList.map(val => {
           data.push({value:val.accountId,label:val.name})
       })
@@ -93,12 +94,14 @@ export default function TransactionForm(props) {
       const data =[]
       const selectedAccount = form.values.accountId
       let paymentType = []
+      // eslint-disable-next-line array-callback-return
       accountList.map(val =>{
           if(val.accountId===selectedAccount){
               paymentType = val.paymentTypes
           }
       })
       if(paymentType.length > 0){
+          // eslint-disable-next-line array-callback-return
           paymentType.map(val => {
               data.push({value:val,label:val})
           })
@@ -107,15 +110,12 @@ export default function TransactionForm(props) {
   }
 
   function handleTransactionType(){
+      // eslint-disable-next-line array-callback-return
       categoryList.map(val =>{
           if(val.categoryId===form.values.categoryId){
               form.values.type = val.type
           }
       })
-  }
-  function  handleCancel(){
-      form.reset()
-      props.close()
   }
   return (
     <>

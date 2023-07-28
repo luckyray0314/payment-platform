@@ -18,7 +18,7 @@ export default function TransactionScreen() {
             await dispatch(fetchTransaction({token: token}))
         }
         fetchData()
-    },[])
+    },[dispatch, token])
     const transactionList = useSelector(state => state.transaction.transactionList)
     function GridSkeleton(){
         return(

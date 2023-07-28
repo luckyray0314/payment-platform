@@ -1,14 +1,14 @@
 import {Title, Grid, Container, Text, Button, List, Paper, Card, Center} from '@mantine/core';
 import HeaderBar from '../components/HeaderBar';
-import {ReactComponent as LeaderSVG} from "../assets/Finance leaders.svg";
-import {ReactComponent as ArrowRigntIcon} from "../assets/Arrow_right.svg";
+import {LeaderSVG} from "../assets/assets";
+import {ArrowRightIcon} from "../assets/assets";
 import {ReactComponent as ManageMoneySVG} from "../assets/Manage money.svg";
 import {ReactComponent as CheckIcon} from '../assets/Check_round_fill.svg'
 import {ReactComponent as ExpensesSVG} from "../assets/Receipt.svg";
 import {ReactComponent as BudgetingSVG} from "../assets/Budgeting.svg";
 import {ReactComponent as SavingSVG} from "../assets/Piggy bank.svg";
 import {ReactComponent as DebtManageSVG} from "../assets/Debt Manage.svg";
-import {ReactComponent as AppLogo} from "../assets/App logo.svg";
+import {AppLogo} from "../assets/assets";
 import {useDispatch} from "react-redux";
 import {openSignupForm} from "../features/userSlice";
 export default function LandingScreen() {
@@ -22,7 +22,7 @@ export default function LandingScreen() {
                     <Grid.Col md={6} lg={6}>
                         <Title style={{textAlign:"left" }} size="48">Empower your finances, simplify your life.</Title>
                         <Text c="dimmed" style={{marginTop:10,textAlign:"left"}}>PayMint: Simplify payments, track expenses, achieve financial goals</Text>
-                        <Button onClick={() => dispatch(openSignupForm())} size={"md"} radius="xl" style={{marginTop:20}} rightIcon={<ArrowRigntIcon/>}>Get started</Button>
+                        <Button onClick={() => dispatch(openSignupForm())} size={"md"} radius="xl" style={{marginTop:20}} rightIcon={<ArrowRightIcon/>}>Get started</Button>
                     </Grid.Col>
                     <Grid.Col md={6} lg={6}>
                         <Center >

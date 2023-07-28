@@ -42,7 +42,7 @@ const IncomePieChart = (props) => {
             console.log(err)
             setPieChartLoading(false)
         })
-    },[])
+    },[token])
     const labels = [];
     const incomeData = [];
     const colorPalette = ['#C8DEFF', '#6DA8FF', '#247CFF', '#0057DB', '#0042A4'];
