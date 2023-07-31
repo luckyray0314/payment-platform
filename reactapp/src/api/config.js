@@ -1,2 +1,2 @@
-export const baseUrl = process.env.REACT_APP_API_URL
+export const baseUrl = "https://ec2-13-127-63-84.ap-south-1.compute.amazonaws.com:8080/api"
 
