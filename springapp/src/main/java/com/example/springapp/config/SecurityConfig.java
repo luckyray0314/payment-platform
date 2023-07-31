@@ -3,7 +3,13 @@ package com.example.springapp.config;
 import com.example.springapp.config.auth.CustomUserDetailsService;
 import com.example.springapp.config.auth.JWTAuthEntryPoint;
 import com.example.springapp.config.auth.JWTAuthFilter;
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -84,5 +90,38 @@ public class SecurityConfig {
 
             }
         };
+    }
+
+    @Bean
+    public ServletWebServerFactory servletContainer() {
+
+        var tomcat = new TomcatServletWebServerFactory() {
+
+            @Override
+            protected void postProcessContext(Context context) {
+
+                var securityConstraint = new SecurityConstraint();
+                securityConstraint.setUserConstraint("CONFIDENTIAL");
+
+                var collection = new SecurityCollection();
+                collection.addPattern("/*");
+                securityConstraint.addCollection(collection);
+                context.addConstraint(securityConstraint);
+            }
+        };
+
+        tomcat.addAdditionalTomcatConnectors(redirectConnector());
+        return tomcat;
+    }
+
+    private Connector redirectConnector() {
+
+        var connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        connector.setScheme("http");
+        connector.setPort(8081);
+        connector.setSecure(false);
+        connector.setRedirectPort(8443);
+
+        return connector;
     }
 }
