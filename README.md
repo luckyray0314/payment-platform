@@ -48,19 +48,10 @@ The following features are available in the Paymint - Personal Finance Manager s
 ## Technology Stack
 
 Paymint - Personal Finance Manager utilizes the following technologies:
-
-### Frontend
-- React.js
-- Redux.js
-
-### Backend
-- Spring Boot
-
-### Security
-- Spring Security
-
-### Database
-- MySQL
+- Frontend: React.js, Redux.js
+- Backend: Spring Boot
+- Security: Spring Security
+- Database: MySQL
 
 ## System Architecture
 
