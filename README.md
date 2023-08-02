@@ -74,15 +74,21 @@ Make sure to provide proper configuration for security and sensitive information
 ## Screenshots
 
 Here are some screenshots of the application's user interface:
-
-![Landing Page](screenshots/landing_page.png)
-![Signup Page](screenshots/signup_page.png)
-![Sign In Page](screenshots/signin_page.png)
-![Dashboard Page](screenshots/dashboard_page.png)
-![Transaction Page](screenshots/transaction_page.png)
-![Accounts Page](screenshots/accounts_page.png)
-![Goals Page](screenshots/goals_page.png)
-![Budgets Page](screenshots/budgets_page.png)
+- Landing Page
+  
+![Landing Page](https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/Project%20Doc/Screenshots/landing-page.jpg)
+- Dashboard Page
+  
+![Dashboard Page](https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/Project%20Doc/Screenshots/dashboard-page.jpg)
+- Transaction Page
+  
+![Transaction Page](https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/Project%20Doc/Screenshots/transaction-page.jpg)
+- Accounts Page
+  
+![Accounts Page](https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/Project%20Doc/Screenshots/account-page.jpg)
+- Budgets Page
+  
+![Budgets Page](https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/Project%20Doc/Screenshots/budget-page.jpg)
 
 ## Conclusion
 
