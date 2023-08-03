@@ -21,6 +21,7 @@ import {fetchCategory} from "../../features/categorySlice";
 export default function TransactionForm(props) {
   const dispatch = useDispatch()
   const token = useSelector(state => state.user.token)
+    const isMobile = useSelector(state => state.user.isMobile)
     useSelector(state => state.transaction.addTransactionInProcess);
     useEffect(()=>{
         dispatch(fetchCategory({token:token}))
@@ -127,36 +128,33 @@ export default function TransactionForm(props) {
         <Title style={{ marginLeft: 10 }} order={3}>Add Transaction</Title>
         <form onSubmit={form.onSubmit((values) => handleAddTransaction(values))}>
         <Grid style={{ margin: 10 }}>
-          <Grid.Col span={6}>
-            <Container size="md">
-
-                <DateTimePicker
-                    radius="md"
-                    dropdownType="modal"
-                    valueFormat="DD MMM YYYY hh:mm A"
-                    label="Date and time"
-                    placeholder="Pick date and time"
-                    maw={400}
-                    mx="auto"
-                    {...form.getInputProps('dateTime')}
-                />
-                <TextInput radius="md" style={{ marginTop: 16 }}
-                  label="Amount"
-                  placeholder="Ex: 5,000"
-                  type='number'
-                  {...form.getInputProps('amount')}
-                  withAsterisk
-                />
-                <Textarea radius="md" style={{ marginTop: 16 }}
-                  placeholder="Enter Description"
-                  label="Description"
-                  autosize
-                  minRows={4}
-                  {...form.getInputProps('description')}
-                />
-            </Container>
+          <Grid.Col span={12} md={6}>
+              <DateTimePicker
+                  radius="md"
+                  dropdownType="modal"
+                  valueFormat="DD MMM YYYY hh:mm A"
+                  label="Date and time"
+                  placeholder="Pick date and time"
+                  maw={400}
+                  mx="auto"
+                  {...form.getInputProps('dateTime')}
+              />
+              <TextInput radius="md" style={{ marginTop: 16 }}
+                         label="Amount"
+                         placeholder="Ex: 5,000"
+                         type='number'
+                         {...form.getInputProps('amount')}
+                         withAsterisk
+              />
+              <Textarea radius="md" style={{ marginTop: 16 }}
+                        placeholder="Enter Description"
+                        label="Description"
+                        autosize
+                        minRows={4}
+                        {...form.getInputProps('description')}
+              />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={12} md={6}>
             <Select radius="md"
               label="Category"
               placeholder="Select Category"

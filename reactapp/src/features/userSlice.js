@@ -178,6 +178,7 @@ export const userSlice = createSlice({
             userId:''
         },
         token:null,
+        isMobile:false,
         displaySignupForm:false,
         displaySigninForm:false,
         displayForgotPasswordForm:false,
@@ -223,6 +224,9 @@ export const userSlice = createSlice({
         },
         closeSigninForm:(state)=>{
             state.displaySigninForm = false
+        },
+        changeIsMobile:(state,action) => {
+            state.isMobile = action.payload
         }
     },
     extraReducers:{
@@ -503,5 +507,6 @@ export const {
     closeSigninForm,
     openForgotPasswordForm,
     closeForgotPasswordForm,
+    changeIsMobile
 } = userSlice.actions
 export default userSlice.reducer
