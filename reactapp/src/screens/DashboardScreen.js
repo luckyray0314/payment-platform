@@ -46,17 +46,17 @@ export default function  DashboardScreen(){
                                     <Title order={4}>{result?.total_expenses>0 ? `Rs. ${result?.total_expenses.toLocaleString("en-US")}` : `-`}</Title>
                                     <Text c={"dimmed"}>This Month Expenses</Text>
                                 </Grid.Col>
-                                <Grid.Col span={6}>
+                                <Grid.Col span={12} md={6}>
                                     <Title style={{color: "#26AB35"}} order={4}>{result?.total_income>0 ? `Rs. ${result?.total_income.toLocaleString("en-US")}` : `-`}</Title>
                                     <Text c={"dimmed"}>This Month Income</Text>
                                 </Grid.Col>
                             </Grid>
                             <Divider my="sm" style={{marginBottom:20}} />
                             <Grid>
-                                <Grid.Col span={6}>
+                                <Grid.Col md={12} lg={6}>
                                     <ExpensesPieChart/>
                                 </Grid.Col>
-                                <Grid.Col span={6}>
+                                <Grid.Col md={12} lg={6}>
                                     <IncomePieChart/>
                                 </Grid.Col>
                             </Grid>
