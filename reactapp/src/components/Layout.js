@@ -3,25 +3,11 @@ import SideBar from "../components/SideBar";
 import {AppShell, Text, Header,Title} from "@mantine/core";
 import {ReactComponent as NoDataSVG} from "../assets/No-data.svg";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 export default function Layout(props){
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useSelector(state => state.user.isMobile)
     const [navOpened, setNavOpened] = useState(false);
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
-        };
-
-        // Add event listener on component mount
-        window.addEventListener('resize', handleResize);
-
-        // Call handleResize once on component mount
-        handleResize();
-
-        // Cleanup the event listener on component unmount
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
    return(
        <AppShell
            padding="md"

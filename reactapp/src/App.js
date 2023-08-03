@@ -4,13 +4,29 @@ import AccountScreen from "./screens/AccountScreen";
 import ReportScreen from './screens/ReportScreen';
 import GoalScreen from './screens/GoalScreen';
 import {Route, Routes, Navigate, HashRouter} from "react-router-dom";
-import {useSelector} from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from "react";
 import TransactionScreen from './screens/TransactionScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import BudgetScreen from "./screens/BudgetScreen";
+import {changeIsMobile} from "./features/userSlice";
 
 function App() {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        const handleResize = () => {
+            dispatch(changeIsMobile(window.innerWidth <= 768)); // Adjust the breakpoint as needed
+        };
+
+        // Add event listener on component mount
+        window.addEventListener('resize', handleResize);
+
+        // Call handleResize once on component mount
+        handleResize();
+        console.log(window.innerWidth <= 768)
+        // Cleanup the event listener on component unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, [window]);
 
   return (
       <HashRouter>

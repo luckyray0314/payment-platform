@@ -13,5 +13,9 @@ export const AppLogo = () =>{
 }
 
 export const ArrowGIcon = () =>{
-    return <img src={"https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/assets/App%20logo.svg"} alt={""}/>
+    return <img src={"https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/assets/Arrow_alt_ldown.svg"} alt={""}/>
+}
+
+export const ArrowRIcon = () =>{
+    return <img src={"https://raw.githubusercontent.com/UdhayakumarThangavel/paymint-web-app/main/assets/Arrow_alt_ltop.svg"} alt={""}/>
 }

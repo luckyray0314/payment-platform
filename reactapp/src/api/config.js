@@ -1,2 +1,2 @@
-export const baseUrl = "https://ec2-13-127-63-84.ap-south-1.compute.amazonaws.com:8080/api"
+export const baseUrl = "http://192.168.177.81:8080/api"
 
