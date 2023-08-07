@@ -27,6 +27,7 @@ const BarChart = () => {
     const [result,setResult] = useState([]);
     const token  = useSelector(state => state.user.token)
     const [barChartLoading,setBarChartLoading] = useState(false)
+    const isMobile = useSelector(state => state.user.isMobile)
     useEffect(() =>{
         setBarChartLoading(true)
         axios.get(`${baseUrl}/dashboard/monthly-data`,{
@@ -84,10 +85,18 @@ const BarChart = () => {
             data.datasets[1].data[index] = item.income;
         }
     });
+    function aspectRatio(){
+        if(isMobile){
+            return 1.5
+        }else {
+            return 2
+        }
+    }
 
     const maxDataValue = Math.max(...expensesData, ...incomeData);
     const stepSize = Math.ceil(maxDataValue / 5 / 500) * 500;
     const options = {
+        aspectRatio: aspectRatio(),
         plugins: {
             legend: {
                 display: true,
@@ -111,7 +120,7 @@ const BarChart = () => {
                         if (value === 0) return value.toString();
                         const number = value / 1000;
                         if (number >= 1) {
-                            return number.toString() + 'K';
+                            return number.toString() + 'k';
                         }
                         return '';
                     },

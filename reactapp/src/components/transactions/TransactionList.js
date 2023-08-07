@@ -1,4 +1,4 @@
-import {Badge, Card, Grid, Table, Text} from '@mantine/core';
+import {Avatar, Badge, Card, Grid, Table, Text} from '@mantine/core';
 import {ArrowRIcon ,ArrowGIcon} from "../../assets/assets";
 import Edit from '../../assets/Edit.svg'
 import {useSelector} from "react-redux";
@@ -94,38 +94,41 @@ export default function TransactionList() {
         const timeOptions = { hour: 'numeric', minute: '2-digit' };
         const cardContent = (
             <div>
-                <Grid>
-                    <Grid.Col span={3} >
-                        <Text fw={500} c="dimmed" fz="md" style={{marginBottom:5}}>{dateTime.toLocaleDateString('en-US',dateOptions)}</Text>
-                        <Text fw={500} c="dimmed" fz="sm">{dateTime.toLocaleTimeString('en-US',timeOptions)}</Text>
-                    </Grid.Col>
-                    <Grid.Col span={6} >
-                        <Grid>
+                <div>
+                    <Grid>
+                        <Grid.Col span={2} >
                             {element.category.type === "income" ?
-
-                                <Text fw={700} fz="md" style={{marginTop:10,color: '#26AB35'}}>{"+ Rs. " + element.amount.toLocaleString("en-US")}</Text> : <Text style={{marginTop:10}} fw={700} fz="md">{"- Rs. " + element.amount.toLocaleString("en-US")}</Text>}
-                        </Grid>
-                        <Grid>
-                            <Text style={{marginTop:10}} fw={500} c={"dimmed"} fz="md">{element.account.name.length>16 ? `${element.account.name.slice(0,16)}...`:element.account.name}</Text>
-                        </Grid>
-                    </Grid.Col>
-                    <Grid.Col span={3}>
-                        <div>
+                                <Avatar color="green" radius="xl">{element.category.name.slice(0,2).toUpperCase()}</Avatar>
+                                :
+                                <Avatar color="blue" radius="xl">{element.category.name.slice(0,2).toUpperCase()}</Avatar>
+                            }
+                        </Grid.Col>
+                        <Grid.Col span={7} >
                             {element.category.type === "income" ?
-                                <ArrowGIcon/> : <ArrowRIcon/>}
-                        </div>
-                        <div>
-                            {element.category.type === "income" ?
-                                <Text fw={700} fz="md">{<Badge size={"xs"} color="green">{element.category.name.length>8 ? `${element.category.name.slice(0,8)}...`:element.category.name}</Badge>}</Text>  : <Text fw={700} fz="md">{<Badge size={"xs"} color="red">{element.category.name.length>8 ? `${element.category.name.slice(0,8)}...`:element.category.name}</Badge>}</Text>}
-                        </div>
-                    </Grid.Col>
-                </Grid>
+                                <Text fw={500} fz="sm">{`Received from ${element.category.name.length>12 ? `${element.category.name.slice(0,12)}...`:element.category.name}`}</Text>  : <Text fw={500} fz="sm">{`Spent on ${element.category.name.length>12 ? `${element.category.name.slice(0,12)}...`:element.category.name}`}</Text>}
+                            <Text fw={500} c="dimmed" fz="xs" style={{marginBottom:5}}>{`${dateTime.toLocaleDateString('en-US',dateOptions)}, ${dateTime.toLocaleTimeString('en-US',timeOptions)}`}</Text>
+                        </Grid.Col>
+                        <Grid.Col span={3} offset={0}>
+                            <div style={{ display: "flex", justifyContent: "flex-end",marginRight:5 }}>
+                                <Grid>
+                                    {element.category.type === "income" ?
+                                        <Text fw={700} fz="sm" style={{marginTop:10,color: '#26AB35'}}>{"+₹" + element.amount.toLocaleString("en-US")}</Text> : <Text style={{marginTop:10}} fw={700} fz="sm">{"-₹" + element.amount.toLocaleString("en-US")}</Text>}
+                                </Grid>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "flex-end",marginRight:5,marginTop:3 }}>
+                                <Grid>
+                                    <Text style={{marginTop:10}} fw={500} c={"dimmed"} fz="xs">{element.paymentType.length>10 ? `${element.account.name.slice(0,10)}...`:element.paymentType}</Text>
+                                </Grid>
+                            </div>
+                        </Grid.Col>
+                    </Grid>
+                </div>
             </div>
         );
 
         if (isMobile) {
             return (
-                <Card key={element.id} radius="md" p="md" withBorder style={{ marginBottom: 8 }}>
+                <Card key={element.id} radius="md" p="sm" withBorder style={{ marginBottom: 8 }}>
                     {cardContent}
                 </Card>
             );
@@ -154,7 +157,8 @@ export default function TransactionList() {
             )}
             {isMobile ? (
                 <div>
-                    <Text style={{marginBottom:10,marginTop:10}}>Recent Transactions</Text>
+                    <Text fw={"700"} style={{marginBottom:3,marginTop:10}}>History</Text>
+                    <Text fz={"xs"} style={{marginBottom:10}}>Recent transactions from all your accounts</Text>
                     <div>{rows}</div>
                 </div>
             ) : (

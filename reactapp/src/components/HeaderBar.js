@@ -71,32 +71,40 @@ export default function HeaderBar(props) {
                             </Group>
 
                             :<Group>
-                                <Menu  radius={"md"} openDelay={100} shadow="md" width={220}>
-                                    <Menu.Target>
-                                        <UnstyledButton style={{height: rem(42)}} radius={"md"} variant={"default"}>
-                                        <Group>
-                                            <Button radius={"xl"} variant={"default"} size={rem(42)}>
-                                                <Avatar  src={`data:image/jpeg;base64,${currentUser.profileImage}`} radius="xl"><AvatarIcon/></Avatar>
-                                            </Button>
-                                            {!props.isMobile &&
-                                                <div style={{ flex: 1 }}>
-                                                    <Text size="sm" fw={700}>{currentUser.firstName}
-                                                    </Text>
-                                                    <Text c={"dimmed"} size="xs">{currentUser.email.length>16 ? `${currentUser.email.slice(0,16)}...`:currentUser.email}
-                                                    </Text>
-                                                </div>
-                                            }
-                                            <ExpandIcon style={{height:16,width:16}}></ExpandIcon>
-                                        </Group>
+                                {props.isMobile ?
+                                    <Button radius={"xl"} variant={"default"} size={rem(42)}>
+                                        <Avatar  src={`data:image/jpeg;base64,${currentUser.profileImage}`} radius="xl"><AvatarIcon/></Avatar>
+                                    </Button>
+                                    :
+                                    <Menu  radius={"md"} openDelay={100} shadow="md" width={220}>
+                                        <Menu.Target>
+                                            <UnstyledButton style={{height: rem(42)}} radius={"md"} variant={"default"}>
+                                                <Group>
+                                                    <Button radius={"xl"} variant={"default"} size={rem(42)}>
+                                                        <Avatar  src={`data:image/jpeg;base64,${currentUser.profileImage}`} radius="xl"><AvatarIcon/></Avatar>
+                                                    </Button>
+                                                    {!props.isMobile &&
+                                                        <div>
+                                                            <div style={{ flex: 1 }}>
+                                                                <Text size="sm" fw={700}>{currentUser.firstName}
+                                                                </Text>
+                                                                <Text c={"dimmed"} size="xs">{currentUser.email.length>16 ? `${currentUser.email.slice(0,16)}...`:currentUser.email}
+                                                                </Text>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <ExpandIcon style={{height:16,width:16}}></ExpandIcon>
+                                                </Group>
 
-                                        </UnstyledButton>
+                                            </UnstyledButton>
 
-                                    </Menu.Target>
-                                    <Menu.Dropdown >
-                                        <Menu.Item transitionProps={{ transition: 'slide-down', duration: 150 }} onClick={()=>{handleSetting()}} icon={<ProfileIcon style={{height:16,width:16}}/>}><Text size={"sm"}>Profile</Text></Menu.Item>
-                                        <Menu.Item transitionProps={{ transition: 'slide-down', duration: 150 }} onClick={()=>setDisplayConfirmLogout(true)} color="red" icon={<LogoutIcon style={{height:16,width:16}}/>}><Text size={"sm"}>Logout</Text></Menu.Item>
-                                    </Menu.Dropdown>
-                                </Menu>
+                                        </Menu.Target>
+                                        <Menu.Dropdown >
+                                            <Menu.Item transitionProps={{ transition: 'slide-down', duration: 150 }} onClick={()=>{handleSetting()}} icon={<ProfileIcon style={{height:16,width:16}}/>}><Text size={"sm"}>Profile</Text></Menu.Item>
+                                            <Menu.Item transitionProps={{ transition: 'slide-down', duration: 150 }} onClick={()=>setDisplayConfirmLogout(true)} color="red" icon={<LogoutIcon style={{height:16,width:16}}/>}><Text size={"sm"}>Logout</Text></Menu.Item>
+                                        </Menu.Dropdown>
+                                    </Menu>
+                                }
                                 </Group>
                         }
                 </Group>

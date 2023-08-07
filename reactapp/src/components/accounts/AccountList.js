@@ -1,66 +1,53 @@
-
-import {Text, Table, Card, Grid, Badge} from '@mantine/core';
-import { ReactComponent as EditSVG } from '../../assets/Edit.svg';
+import {Text, Table, Card, Grid, Badge, BackgroundImage} from '@mantine/core';
+import {ReactComponent as EditSVG} from '../../assets/Edit.svg';
+import Account_Background from "../../assets/Acc_Background.svg";
 import {useSelector} from "react-redux";
 import {useState} from "react";
 import AccountEditForm from "./AccountEditForm";
+
 export default function AccountList() {
     const accountList = useSelector(state => state.account.accountList)
     const isMobile = useSelector(state => state.user.isMobile)
-    const [displayAccountEditForm,setDisplayAccountEditForm] = useState(false);
-    const [selectedEditElement,setSelectedEditElement] = useState(null);
-    function handleEdit(element){
+    const [displayAccountEditForm, setDisplayAccountEditForm] = useState(false);
+    const [selectedEditElement, setSelectedEditElement] = useState(null);
+    function handleEdit(element) {
         setSelectedEditElement(element)
         setDisplayAccountEditForm(true)
     }
 
-    function handleAccountEditFormClose(){
+    function handleAccountEditFormClose() {
         setDisplayAccountEditForm(false)
     }
 
     const rows = accountList.map((element) => {
         const cardContent = (
             <div>
-                <Badge size={"xl"} radius="md" variant="dot">{element.name}</Badge>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Total Inc.</Text>
-                    </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text  fw={700}>Rs. {element.totalIncome.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Total Exp.</Text>
-                    </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text  fw={700}>Rs. {element.totalExpenses.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Current Bal.</Text>
-                    </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text style={{ color: '#26AB35' }} fw={700}>Rs. {element.currentBalance.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
+                <div style={{margin:10}}>
+                    <Grid>
+                        <Grid.Col style={{marginLeft: 'auto'}} span={"content"}>
+                            <Badge size={"xl"} radius="md" variant="dot">{element.name}</Badge>
+                        </Grid.Col>
+                    </Grid>
+                    <Grid>
+                        <Grid.Col span={"content"}>
+                            <Text style={{marginTop: 20}}>Total Available Balance</Text>
+                            <Badge variant="filled" size={"xl"}><Text
+                                         fw={700}>Rs. {element.currentBalance.toLocaleString('en-US')}</Text></Badge>
+                        </Grid.Col>
+                    </Grid>
+                    <Grid>
+                        <Grid.Col style={{marginLeft: 'auto'}} span={"content"}>
+                            <Text style={{marginTop: 28}} size={"xs"}>{element.paymentTypes.join(' • ')}</Text>
+                        </Grid.Col>
+                    </Grid>
+                </div>
             </div>
+
         );
 
         if (isMobile) {
             return (
-                <Card key={element.accountId} radius="md" p="md" withBorder style={{ marginBottom: 8 }}>
+                <Card key={element.accountId} radius="md" withBorder style={{marginBottom: 8,padding:0, borderWidth:1.5}}>
                     {cardContent}
                 </Card>
             );
@@ -79,11 +66,11 @@ export default function AccountList() {
                     <Text fw={700}>{`Rs. ${element.totalExpenses.toLocaleString('en-US')}`}</Text>
                 </td>
                 <td>
-                    <Text fw={700} style={{ color: '#26AB35' }}>
+                    <Text fw={700} style={{color: '#26AB35'}}>
                         {`Rs. ${element.currentBalance.toLocaleString('en-US')}`}
                     </Text>
                 </td>
-                <td>{<EditSVG onClick={() => handleEdit(element)} />}</td>
+                <td>{<EditSVG onClick={() => handleEdit(element)}/>}</td>
             </tr>
         );
     });
@@ -99,7 +86,8 @@ export default function AccountList() {
             )}
             {isMobile ? (
                 <div>
-                    <Text style={{marginBottom:20,marginTop:20}}>Your Accounts</Text>
+                    <Text fw={"700"} style={{marginBottom:3,marginTop:28}}>Your Accounts</Text>
+                    <Text fz={"xs"} style={{marginBottom:10}}>Accounts with the current balance</Text>
                     <div>{rows}</div>
                 </div>
             ) : (

@@ -28,6 +28,7 @@ ChartJS.register(
 const IncomePieChart = (props) => {
     const [result,setResult] = useState([]);
     let tempresult=[];
+    const isMobile = useSelector(state => state.user.isMobile)
     const [pieChartLoading,setPieChartLoading] = useState(false)
     const token  = useSelector(state => state.user.token)
     useEffect(() =>{
@@ -90,12 +91,26 @@ const IncomePieChart = (props) => {
         // Set background color for the dataset
         data.datasets[0].backgroundColor.push(adjustedColor);
     });
+    function legend(){
+        if(isMobile){
+            return 'right'
+        }else {
+            return 'top'
+        }
+    }
+    function aspectRatio(){
+        if(isMobile){
+            return 2
+        }else {
+            return 1
+        }
+    }
     const options = {
         responsive: true,
-        aspectRatio: 1,
+        aspectRatio: aspectRatio(),
         plugins: {
             legend: {
-                position: 'top',
+                position: legend(),
             },
         }
     };

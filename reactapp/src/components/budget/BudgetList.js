@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Table, Progress, Text, Grid, Card, Badge} from "@mantine/core";
+import {Table, Progress, Text, Grid, Card, Badge, Avatar} from "@mantine/core";
 import {ReactComponent as EditSVG} from '../../assets/Edit.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchBudget} from "../../features/budgetSlice";
@@ -29,50 +29,20 @@ export default function BudgetList() {
     const rows = budgetList.map((element) => {
         const cardContent = (
             <div>
-                <Badge size={"xl"} radius="md" variant="dot">{element.category.name}</Badge>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Budget</Text>
+                <Grid>
+                    <Grid.Col span={2} >
+                        <Avatar color="blue" radius="xl">{element.category.name.slice(0,2).toUpperCase()}</Avatar>
                     </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text  fw={700}>Rs. {element.amount.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Used Amt.</Text>
-                    </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text  fw={700}>Rs. {element.used.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span={4}>
-                        <Text fw={500}>Bal Left</Text>
-                    </Grid.Col>
-                    <Grid.Col span={1}>
-                        <Text  fw={700}>:</Text>
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <Text style={{color: '#26AB35'}} fw={700}>Rs. {element.balance.toLocaleString('en-US')}</Text>
-                    </Grid.Col>
-                </Grid>
-                <Grid style={{margin:1}}>
-                    <Grid.Col span="auto">
+                    <Grid.Col span={10} >
+                        <Text fw={"600"} style={{marginBottom:8}} fz={"sm"}>{`${element.category.name} (${Math.floor((100 * element.used) / element.amount)}%)`}</Text>
                         <Progress
                             tooltip={(100 * element.used) / element.amount}
                             style={{ marginTop: 5}}
-                            label={`${Math.floor((100 * element.used) / element.amount)}%`}
                             value={(100 * element.used) / element.amount}
                             radius="xl"
-                            size="xl"
+                            size="sm"
                         />
+                        <Text style={{marginTop:8,fontSize:10}}>{`Balance left to spend  Rs. ${element.balance.toLocaleString('en-US')} in Rs. ${element.amount.toLocaleString('en-US')}`}</Text>
                     </Grid.Col>
                 </Grid>
             </div>
@@ -131,7 +101,8 @@ export default function BudgetList() {
             )}
             {isMobile ? (
                 <div>
-                    <Text style={{marginBottom:20,marginTop:20}}>This Month Usage</Text>
+                    <Text fw={"700"} style={{marginBottom:3,marginTop:28}}>This month</Text>
+                    <Text fz={"xs"} style={{marginBottom:10}}>All your Budget spending based on this month</Text>
                     <div>{rows}</div>
                 </div>
             ) : (

@@ -1,4 +1,4 @@
-import { Box, Text, Navbar, Menu, NavLink, Button } from "@mantine/core";
+import {Box, Text, Navbar, Menu, NavLink, Button, Avatar, Grid, rem, Group} from "@mantine/core";
 import { ReactComponent as DashboardIcon } from "../assets/Widget.svg";
 import { ReactComponent as DashboardIconBlue } from "../assets/Widget_Blue.svg";
 import { ReactComponent as TransactionsIcon } from "../assets/Collapse.svg";
@@ -20,6 +20,8 @@ import { ReactComponent as AddBudgetIcon } from "../assets/Date_range_duotone.sv
 import { ReactComponent as AddTransactionIcon } from "../assets/Collapse_light_duotone.svg";
 import { ReactComponent as AddAccountIcon } from "../assets/Database_duotone.svg";
 import { ReactComponent as AddGoalIcon } from "../assets/Road_finish_duotone_line.svg";
+import {ReactComponent as AvatarIcon} from "../assets/User_duotone.svg";
+import React from "react";
 
 
 import { useNavigate } from "react-router-dom";
@@ -44,6 +46,7 @@ export default function SideBar(props) {
   const displayAccountForm = useSelector(state => state.account.displayAccountForm)
   const displayBudgetForm = useSelector(state => state.budget.displayBudgetForm)
   const displayGoalForm = useSelector(state => state.goal.displayGoalForm)
+  const currentUser = useSelector(state => state.user.currentUser)
   function handleCategoryFormClose() {
     dispatch(closeCategoryForm());
   }
@@ -96,6 +99,35 @@ export default function SideBar(props) {
           <div style={{ padding: 10 }}>
             {props.isMobile ?
                 <Box style={{ padding: 10 }}>
+                  <Grid style={{marginTop:5}}>
+                    <Grid.Col style={{ display: 'flex', justifyContent: 'center' }}>
+                      <AvatarIcon  style={{
+                        width: 100,
+                        height: 100,
+                        objectFit: "contain",
+                        borderStyle:"solid",
+                        borderWidth:1,
+                        borderColor:"rgba(0,0,0,0.2)",
+                        borderRadius: "1000px",
+                      }}/>
+                    </Grid.Col>
+                  </Grid>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button style={{height: rem(58),marginBottom:20}} radius={"md"} variant={"subtle"}>
+                      <Grid>
+                        <Grid.Col>
+                          <Group style={{margin:10}}>
+                            <div style={{ flex: 1 }}>
+                              <Text size="lg" fw={700}>{currentUser.firstName}
+                              </Text>
+                              <Text c={"dimmed"} size="sm">{currentUser.email.length>16 ? `${currentUser.email.slice(0,16)}...`:currentUser.email}
+                              </Text>
+                            </div>
+                          </Group>
+                        </Grid.Col>
+                      </Grid>
+                    </Button>
+                  </div>
                   <NavLink
                       style={{ borderRadius: 8,marginBottom:10}}
                       label={props.currentPage === "Dashboard" ?<Text size={"lg"} fw={600}>Dashboard</Text>:<Text size={"lg"}>Dashboard</Text>}
@@ -215,40 +247,42 @@ export default function SideBar(props) {
           </div>
         </Navbar.Section>
         <Navbar.Section>
-          <Menu position="right" radius={"md"} withArrow shadow="xl" width={200} transitionProps={{ transition: 'scale-x', duration: 150 }}>
-            <Menu.Target >
-              <div style={{ padding: 10 }}>
-                <Button
-                    leftIcon={<AddIcon style={{width:16,height:16}}/>}
-                    radius={"md"}
-                    fullWidth
-                >
-                  Add
-                </Button>
-              </div>
+          {props.isMobile ? <div></div> :
+              <Menu position="right" radius={"md"} withArrow shadow="xl" width={200} transitionProps={{ transition: 'scale-x', duration: 150 }}>
+                <Menu.Target >
+                  <div style={{ padding: 10 }}>
+                    <Button
+                        leftIcon={<AddIcon style={{width:16,height:16}}/>}
+                        radius={"md"}
+                        fullWidth
+                    >
+                      Add
+                    </Button>
+                  </div>
 
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Item icon={<AddCategoryIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showCategoryForm())}>
-                <Text size={"sm"}>Add Category</Text>
-              </Menu.Item>
-              <Menu.Item icon={<AddAccountIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showAccountForm())}>
-                Add Account
-              </Menu.Item>
-              <Menu.Item icon={<AddTransactionIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showTransactionForm())}>
-                Add Transaction
-              </Menu.Item>
-              <Menu.Item icon={<AddBudgetIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() =>dispatch(showBudgetForm())}>
-                Add Budget
-              </Menu.Item>
-              <Menu.Item icon={<AddGoalIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showGoalForm())}>
-                Add Goal
-              </Menu.Item>
-              <Menu.Item icon={<AddDebtIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }}  >
-                Add Debt
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <Menu.Item icon={<AddCategoryIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showCategoryForm())}>
+                    <Text size={"sm"}>Add Category</Text>
+                  </Menu.Item>
+                  <Menu.Item icon={<AddAccountIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showAccountForm())}>
+                    Add Account
+                  </Menu.Item>
+                  <Menu.Item icon={<AddTransactionIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showTransactionForm())}>
+                    Add Transaction
+                  </Menu.Item>
+                  <Menu.Item icon={<AddBudgetIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() =>dispatch(showBudgetForm())}>
+                    Add Budget
+                  </Menu.Item>
+                  <Menu.Item icon={<AddGoalIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }} onClick={() => dispatch(showGoalForm())}>
+                    Add Goal
+                  </Menu.Item>
+                  <Menu.Item icon={<AddDebtIcon style={{height:20,width:20}} />}  transitionProps={{ transition: 'rotate-right', duration: 150 }}  >
+                    Add Debt
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+          }
           <CategoryForm
             open={displayCategoryForm}
             close={handleCategoryFormClose}

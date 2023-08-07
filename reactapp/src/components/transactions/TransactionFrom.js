@@ -135,8 +135,6 @@ export default function TransactionForm(props) {
                   valueFormat="DD MMM YYYY hh:mm A"
                   label="Date and time"
                   placeholder="Pick date and time"
-                  maw={400}
-                  mx="auto"
                   {...form.getInputProps('dateTime')}
               />
               <TextInput radius="md" style={{ marginTop: 16 }}
