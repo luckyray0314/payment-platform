@@ -95,4 +95,4 @@ Paymint - Personal Finance Manager provides a user-friendly platform for managin
 
 Feel free to contribute, report issues, or provide feedback to enhance the functionality and user experience of Paymint - Personal Finance Manager. Happy managing your finances!
 
-## Created ny John
+## Created by Sai Viet Thanh
